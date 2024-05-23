@@ -40,9 +40,11 @@ RUN git clone -b "feat/Artemis_compatible" --depth=1 https://github.com/jerabaul
 
 WORKDIR /work
 
-RUN git clone --depth=1 https://github.com/jerabaul29/OpenMetBuoy-v2021a.git
+ADD src .
 
-WORKDIR /work/OpenMetBuoy-v2021a/legacy_firmware/firmware/steval_gps_waves_drifter
-RUN mv tracker.ino steval_gps_waves_drifter.ino
-# RUN arduino-cli compile -v -b SparkFun:apollo3:artemis .
+# RUN git clone --depth=1 https://github.com/jerabaul29/OpenMetBuoy-v2021a.git
+
+# WORKDIR /work/OpenMetBuoy-v2021a/legacy_firmware/firmware/steval_gps_waves_drifter
+RUN mv tracker.ino src.ino
+RUN arduino-cli compile -v -b SparkFun:apollo3:artemis .
 
