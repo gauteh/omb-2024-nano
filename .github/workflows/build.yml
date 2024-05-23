@@ -1,5 +1,18 @@
 name: 'Build'
-description: 'Build'
-runs:
-  using: 'docker'
-  image: 'Dockerfile'
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    name: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+      - name: Build docker images
+        run: docker build -t local < Dockerfile
+      - name: Run tests
+        run: docker run -it
