@@ -47,5 +47,5 @@ ADD src .
 # RUN mv tracker.ino src.ino
 
 # The main ino file must have the same name as the folder.
-RUN arduino-cli compile -v -b SparkFun:apollo3:artemis .
+# RUN arduino-cli compile -v -b SparkFun:apollo3:artemis .
 

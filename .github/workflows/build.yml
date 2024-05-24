@@ -15,7 +15,7 @@ jobs:
 
       - name: Install dependencies and arduino compiler cli
         run: |
-          sudo apt-get update && apt-get install -y curl git build-essential ffmpeg arduino-mk && apt-get clean
+          # sudo apt-get update && apt-get install -y curl git build-essential ffmpeg arduino-mk && apt-get clean
           curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | BINDIR=/usr/local/bin sh
           arduino-cli config init
           arduino-cli config add board_manager.additional_urls https://raw.githubusercontent.com/sparkfun/Arduino_Apollo3/main/package_sparkfun_apollo3_index.json
@@ -52,9 +52,9 @@ jobs:
         run: |
           cd src
           mv tracker.ino src.ino
-          arduino-cli compile -v -b SparkFun:apollo3:artemis .
+          arduino-cli compile --build-path build -e --output-path build -v -b SparkFun:apollo3:artemis .
 
       - uses: actions/upload-artifact@v4
         with:
           name: tracker-fw
-          path: build
+          path: src/build
