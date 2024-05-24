@@ -43,8 +43,9 @@ WORKDIR /tracker
 ADD src .
 
 # RUN git clone --depth=1 https://github.com/jerabaul29/OpenMetBuoy-v2021a.git
-
 # WORKDIR /work/OpenMetBuoy-v2021a/legacy_firmware/firmware/steval_gps_waves_drifter
 # RUN mv tracker.ino src.ino
+
+# The main ino file must have the same name as the folder.
 RUN arduino-cli compile -v -b SparkFun:apollo3:artemis .
 
