@@ -15,8 +15,37 @@ jobs:
 
       - name: Install dependencies and arduino compiler cli
         run: |
-          apt-get update && apt-get install -y curl git build-essential ffmpeg arduino-mk && apt-get clean
+          sudo apt-get update && apt-get install -y curl git build-essential ffmpeg arduino-mk && apt-get clean
           curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | BINDIR=/usr/local/bin sh
+          arduino-cli config init
+          arduino-cli config add board_manager.additional_urls https://raw.githubusercontent.com/sparkfun/Arduino_Apollo3/main/package_sparkfun_apollo3_index.json
+          arduino-cli core update-index
+          arduino-cli core install "Sparkfun:apollo3@1.2.1"
+
+          arduino-cli lib update-index
+
+          arduino-cli lib install "Embedded Template Library ETL"
+          touch $HOME/Arduino/libraries/Embedded_Template_Library_ETL/src/etl.h
+          arduino-cli lib install Time
+          arduino-cli lib install "SparkFun Qwiic Power Switch Arduino Library"
+          arduino-cli lib install "SparkFun u-blox GNSS Arduino Library@2.0.2"
+          arduino-cli lib install IridiumSBDi2c
+          arduino-cli lib install "Adafruit LSM6DS@4.3.1"
+          arduino-cli lib install "Adafruit BusIO@1.7.2"
+          arduino-cli lib install "Adafruit LIS3MDL"
+          arduino-cli lib install "Adafruit AHRS@2.2.4"
+          arduino-cli lib install "OneWire@2.3.6"
+
+          # Get Jean's fixed libs
+          cd $HOME/Arduino/libraries
+          rm -rf Adafruit_BusIO
+          git clone -b "fix/SPI_with_Artemis" --depth=1 https://github.com/jerabaul29/Adafruit_BusIO.git
+
+          rm -rf Adafruit_LSM6DS
+          git clone -b "feat/propagate_bool_flags" --depth=1 https://github.com/jerabaul29/Adafruit_LSM6DS.git
+
+          rm -rf OneWire
+          git clone -b "feat/Artemis_compatible" --depth=1 https://github.com/jerabaul29/OneWire.git
 
 
       # - name: Run tests
