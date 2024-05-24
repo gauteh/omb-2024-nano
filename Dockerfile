@@ -38,13 +38,13 @@ RUN git clone -b "feat/propagate_bool_flags" --depth=1 https://github.com/jeraba
 RUN rm -rf OneWire
 RUN git clone -b "feat/Artemis_compatible" --depth=1 https://github.com/jerabaul29/OneWire.git
 
-WORKDIR /work
+WORKDIR /tracker
 
 ADD src .
 
 # RUN git clone --depth=1 https://github.com/jerabaul29/OpenMetBuoy-v2021a.git
 
 # WORKDIR /work/OpenMetBuoy-v2021a/legacy_firmware/firmware/steval_gps_waves_drifter
-RUN mv tracker.ino src.ino
+# RUN mv tracker.ino src.ino
 RUN arduino-cli compile -v -b SparkFun:apollo3:artemis .
 
