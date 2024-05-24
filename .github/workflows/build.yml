@@ -48,5 +48,13 @@ jobs:
           git clone -b "feat/Artemis_compatible" --depth=1 https://github.com/jerabaul29/OneWire.git
 
 
-      # - name: Run tests
-      #   run: docker run -it omb-2024-nano
+      - name: Build firmware
+        run: |
+          cd src
+          mv tracker.ino src.ino
+          arduino-cli compile -v -b SparkFun:apollo3:artemis .
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: tracker-fw
+          path: build
