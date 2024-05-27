@@ -15,7 +15,12 @@ bool IMU_Manager::start_IMU(){
   enableBurstMode();
   delay(100);
 
+  ArtemisWire.begin();
+  delay(100);
+  ArtemisWire.setClock(1000000);
+  delay(100);
   wdt.restart();
+  Serial.println(F("started ArtemisWire"));
   delay(500);
   wdt.restart();
 
