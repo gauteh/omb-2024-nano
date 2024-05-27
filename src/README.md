@@ -57,9 +57,7 @@ Switched to a new branch 'fix/SPI_with_Artemis'
 - Artemis Global Tracker
 - Iridium and GNSS passive antenna
 - SMA extension cable
-- Qwiic switch
 - Adafruit 9-dof (Adafruit ISM330DHCX + LIS3MDL FeatherWing - High Precision 9-DoF IMU, PRODUCT ID: 4569)
-- 2 Qwiic cables
 - LSH20 cells, 3 in parallel
 - pololu 3.3V step up step down regulator
 
@@ -71,7 +69,6 @@ Switched to a new branch 'fix/SPI_with_Artemis'
 ## Assembly
 
 - connect AGT - SMA extender - antenna
-- connect AGT Qwiic - Qwiic switch in - Qwiic switch out - Adafruit 9 dof
 - solder battery - 3.3V regulator - 3.3V pin
 - cut the LED enable traces on the AGT (```PWR_LED```) and Qwiich switch (```LED_IN``` and ```LED_OUT```)
 

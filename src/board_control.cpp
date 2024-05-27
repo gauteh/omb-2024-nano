@@ -1,7 +1,6 @@
 #include "board_control.h"
 
 TwoWire ArtemisWire(i2c_port_number);
-QWIIC_POWER qwiic_switch;
 
 void blink_LED_n_times(unsigned int number_of_blinks, float frequency_hz){
   wdt.restart();  // we choose to restart at the start and end, but not in loop as a way to make sure not so much blinking that we freeze.
@@ -59,7 +58,7 @@ void turn_gnss_off(void){
 
 void turn_iridium_on(void){
   Serial.println(F("turn iridium on"));
-  turn_gnss_off(); 
+  turn_gnss_off();
   delay(100);
   pinMode(superCapChgEN, OUTPUT); // Configure the super capacitor charger enable pin (connected to LTC3225 !SHDN)
   digitalWrite(superCapChgEN, HIGH); // Enable the super capacitor charger
@@ -78,28 +77,11 @@ void turn_iridium_off(void){
   digitalWrite(iridiumSleep, LOW); // Put the Iridium 9603N to sleep (HIGH = on; LOW = off/sleep)
 }
 
-void turn_qwiic_switch_off(void){
-  Serial.println(F("turn qwiic switch off"));
-   qwiic_switch.pinMode(1, INPUT);
-   qwiic_switch.pinMode(2, INPUT);
-   delay(50);
-   qwiic_switch.powerOff();
-   delay(100);
-}
-
-void turn_qwiic_switch_on(void){
-  Serial.println(F("turn qwiic switch on"));
-   qwiic_switch.powerOn();
-   delay(50);
-   qwiic_switch.pinMode(1, INPUT);
-   qwiic_switch.pinMode(2, INPUT);
-}
-
 void turn_thermistors_on(void){
  // turn on power to the OneWire sensors
   pinMode(THERMISTORS_POWER_PIN, OUTPUT);
   digitalWrite(THERMISTORS_POWER_PIN, HIGH);
-  delay(500); 
+  delay(500);
 }
 
 void turn_thermistors_off(void){

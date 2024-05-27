@@ -8,7 +8,6 @@
 #include "sleep_manager.h"
 
 #include "Wire.h"
-#include <SparkFun_Qwiic_Power_Switch_Arduino_Library.h>
 
 //--------------------------------------------------------------------------------
 // Artemis Tracker pin definitions
@@ -56,23 +55,10 @@ void turn_iridium_off(void);
 void blink_LED_n_times(unsigned int number_of_blinks, float frequency_hz=1.0);
 
 //--------------------------------------------------------------------------------
-// functions to save power on the Qwiic switch
-
-void turn_qwiic_switch_on(void);
-
-void turn_qwiic_switch_off(void);
-
-//--------------------------------------------------------------------------------
 // functions to turn on / off the thermistors
 
 void turn_thermistors_on(void);
 
 void turn_thermistors_off(void);
-
-//--------------------------------------------------------------------------------
-//making the ArtemisWire Qwiic port and Qwiic switch available to all 
-
-extern TwoWire ArtemisWire;
-extern QWIIC_POWER qwiic_switch;
 
 #endif

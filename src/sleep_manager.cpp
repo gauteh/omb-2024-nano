@@ -71,7 +71,6 @@ void prepare_to_sleep(void){
   digitalWrite(busVoltageMonEN, LOW);
   digitalWrite(LED, LOW);
 
-  turn_qwiic_switch_off();
   turn_thermistors_off();
   delay(50);
 

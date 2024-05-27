@@ -15,28 +15,10 @@ bool IMU_Manager::start_IMU(){
   enableBurstMode();
   delay(100);
 
-  ArtemisWire.begin();
-  delay(100);
-  ArtemisWire.setClock(1000000);
-  delay(100);
   wdt.restart();
-  Serial.println(F("started ArtemisWire"));
-
-  Serial.println(F("start qwiic switch"));
-  if (qwiic_switch.begin(ArtemisWire) == false){
-      Serial.println(F("Qwiic Power Switch not detected at default I2C address. Please check wiring. Freezing."));
-      while (true){;}
-  }
-  turn_qwiic_switch_off();
   delay(500);
   wdt.restart();
 
-   // TODO: instead of hang, return false...
-  turn_qwiic_switch_on();
-
-  // configure the power switch
-  turn_qwiic_switch_on();
-  qwiic_switch.isolationOff();
   delay(500);
   wdt.restart();
 
@@ -99,9 +81,6 @@ bool IMU_Manager::start_IMU(){
 bool IMU_Manager::stop_IMU(){
   pinMode(LED, OUTPUT);
   digitalWrite(LED, LOW);
-
-   turn_qwiic_switch_off();
-   delay(100);
 
    disableBurstMode();
    delay(100);
@@ -400,7 +379,7 @@ bool IMU_Manager::update_accumulate_Kalman(void){
    mag_y = float_mean_filter(accu_mag_y);
    mag_z = float_mean_filter(accu_mag_z);
    */
-  
+
    // unsigned long crrt_micros;
    // crrt_micros = micros();
 
