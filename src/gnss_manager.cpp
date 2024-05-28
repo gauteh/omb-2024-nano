@@ -14,7 +14,7 @@ bool GNSS_Manager::get_a_fix(unsigned long timeout_seconds, bool set_RTC_time, b
     // power things up and connect to the GNSS; if fail several time, restart the board
     bool gnss_startup {false};
     for (int i=0; i<5; i++){
-      Wire4.begin();
+      Wire.begin();
       Serial.println(F("Wire1 started"));
       turn_gnss_on();
       delay(1000); // Give it time to power up
@@ -23,12 +23,12 @@ bool GNSS_Manager::get_a_fix(unsigned long timeout_seconds, bool set_RTC_time, b
       Serial.println(F("gnss powered up"));
       Serial.flush();
 
-      if (!gnss.begin(Wire1)){
+      if (!gnss.begin(Wire)){
         Serial.println(F("problem starting GNSS"));
-        
+
         // power things down
         turn_gnss_off();
-        Wire1.end();
+        Wire.end();
         delay(500);
         continue;
       }
@@ -115,7 +115,7 @@ bool GNSS_Manager::get_a_fix(unsigned long timeout_seconds, bool set_RTC_time, b
     );
 
     Serial.print(F("we computed a posix timestamp: ")); Serial.println((unsigned long)common_working_posix_timestamp);
-    
+
     posix_timestamp = common_working_posix_timestamp;
 
     if (set_RTC_time){
@@ -131,7 +131,7 @@ bool GNSS_Manager::get_a_fix(unsigned long timeout_seconds, bool set_RTC_time, b
   // power things down
   if (perform_full_stop){
     turn_gnss_off();
-    Wire1.end();
+    Wire.end();
   }
 
   wdt.restart();
@@ -141,10 +141,10 @@ bool GNSS_Manager::get_a_fix(unsigned long timeout_seconds, bool set_RTC_time, b
 
 bool GNSS_Manager::get_and_push_fix(unsigned long timeout_seconds){
   wdt.restart();
-  
+
   Serial.println(F("start with GNSS buffer:"));
   print_GNSS_fixes_buffer();
-  
+
   if(get_a_fix(timeout_seconds, true, true, false)){
     number_of_GPS_fixes += 1;
 
@@ -180,12 +180,12 @@ bool GNSS_Manager::get_and_push_fix(unsigned long timeout_seconds){
 
     // we turn off by hand, since we did not perform full start stop in the loop
     turn_gnss_off();
-    Wire1.end();
+    Wire.end();
 
     // then, get the values for the filtered lat, lon, timestamp
     long crrt_latitude = accurate_sigma_filter<long>(crrt_accumulator_latitude, 2.0);
-    long crrt_longitude = accurate_sigma_filter<long>(crrt_accumulator_longitude, 2.0); 
-    long crrt_posix_timestamp = accurate_sigma_filter<long>(crrt_accumulator_posix_timestamp, 2.0); 
+    long crrt_longitude = accurate_sigma_filter<long>(crrt_accumulator_longitude, 2.0);
+    long crrt_posix_timestamp = accurate_sigma_filter<long>(crrt_accumulator_posix_timestamp, 2.0);
 
     fix_information crrt_fix {crrt_posix_timestamp, crrt_latitude, crrt_longitude};
 
@@ -212,13 +212,13 @@ bool GNSS_Manager::get_and_push_fix(unsigned long timeout_seconds){
   }
 
   turn_gnss_off();
-  Wire1.end();
+  Wire.end();
 
   Serial.println(F("no fix, no push to buffer"));
 
   Serial.println(F("end with GNSS buffer:"));
   print_GNSS_fixes_buffer();
-  
+
   return false;
 }
 
@@ -258,7 +258,7 @@ void GNSS_Manager::clear_number_sent_fixes(size_t number_fixes_to_clear){
 
   Serial.println(F("after clear end with GNSS buffer:"));
   print_GNSS_fixes_buffer();
-  
+
 }
 
 void GNSS_Manager::print_GNSS_fixes_buffer(void){
@@ -266,7 +266,7 @@ void GNSS_Manager::print_GNSS_fixes_buffer(void){
 
   for (size_t i=0; i<gps_fixes_buffer.size(); i++){
     wdt.restart();
-    
+
     fix_information current_fix = gps_fixes_buffer[i];
     struct_YMDHMS& crrt_YMDHMS = YMDHMS_from_posix_timestamp(current_fix.posix_timestamp);
 

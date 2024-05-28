@@ -40,7 +40,7 @@ RUN git clone -b "feat/Artemis_compatible" --depth=1 https://github.com/jerabaul
 
 WORKDIR /tracker
 
-ADD src .
+# ADD src .
 
 # RUN git clone --depth=1 https://github.com/jerabaul29/OpenMetBuoy-v2021a.git
 # WORKDIR /work/OpenMetBuoy-v2021a/legacy_firmware/firmware/steval_gps_waves_drifter
