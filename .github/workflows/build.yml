@@ -52,7 +52,7 @@ jobs:
         run: |
           cd src
           mv tracker.ino src.ino
-          arduino-cli compile -e --output-dir build -v -b SparkFun:apollo3:artemis .
+          arduino-cli compile -e --output-dir build -v -b SparkFun:apollo3:amap3nano .
 
           echo "Build:"
           ls -l build
