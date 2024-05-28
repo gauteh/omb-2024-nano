@@ -14,7 +14,7 @@ bool GNSS_Manager::get_a_fix(unsigned long timeout_seconds, bool set_RTC_time, b
     // power things up and connect to the GNSS; if fail several time, restart the board
     bool gnss_startup {false};
     for (int i=0; i<5; i++){
-      Wire1.begin();
+      Wire4.begin();
       Serial.println(F("Wire1 started"));
       turn_gnss_on();
       delay(1000); // Give it time to power up
