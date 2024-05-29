@@ -23,7 +23,7 @@ bool GNSS_Manager::get_a_fix(unsigned long timeout_seconds, bool set_RTC_time, b
       Serial.println(F("gnss powered up"));
       Serial.flush();
 
-      if (!gnss.begin(GnssWire)){
+      if (!gnss.begin(GnssWire, 0x42)){
         Serial.println(F("problem starting GNSS"));
 
         // power things down

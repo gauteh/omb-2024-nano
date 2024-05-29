@@ -1,7 +1,7 @@
 #include "board_control.h"
 
 TwoWire ArtemisWire(i2c_port_number);
-TwoWire GnssWire(4);
+TwoWire GnssWire(3);
 
 void blink_LED_n_times(unsigned int number_of_blinks, float frequency_hz){
   wdt.restart();  // we choose to restart at the start and end, but not in loop as a way to make sure not so much blinking that we freeze.

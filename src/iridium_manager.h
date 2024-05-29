@@ -51,7 +51,7 @@ class IridiumManager{
     // $TFQXX; [Temperature_sensor FreQuency setup: where XX is a number that indicates multiple of 30 minutes]
     // $GMLXX; [Gps Min message Length; the minimum number of packets in a GNSS message; this can be used to make sure there is an iridium transmission attempt now and then]
     // for example:
-    // $GFQ01; will set to measure GPS position each 1*15 minutes; we do not allow more seldom than 
+    // $GFQ01; will set to measure GPS position each 1*15 minutes; we do not allow more seldom than
     // $GFQ12; will set to measure GPS position each 12*15 minutes, i.e. each 180 minutes, ie each 3 hours
     // $GFQ02;$WFQ04; will set to measure GPS position each 2*15 minutes ie each 30 minutes, and set wave measurements to measure each 4*30 minutes ie each 2 hours
     // etc, etc
@@ -70,7 +70,7 @@ class IridiumManager{
     // But still, be careful, and double check both the formatting and the logics of your messages before sending them!!
 
   private:
-    Uart iridium_serial{1, 25, 24};
+    Uart iridium_serial{1, 40, 39};
     IridiumSBD iridium_sbd{iridium_serial, iridiumSleep, iridiumRI};
 
     unsigned char iridium_tx_raw_buffer[iridium_tx_buffer_size];
