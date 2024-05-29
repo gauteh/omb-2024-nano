@@ -14,8 +14,8 @@ bool GNSS_Manager::get_a_fix(unsigned long timeout_seconds, bool set_RTC_time, b
     // power things up and connect to the GNSS; if fail several time, restart the board
     bool gnss_startup {false};
     for (int i=0; i<5; i++){
-      Wire.begin();
-      Serial.println(F("Wire1 started"));
+      GnssWire.begin();
+      Serial.println(F("GnssWire1 started"));
       turn_gnss_on();
       delay(1000); // Give it time to power up
       wdt.restart();
@@ -23,12 +23,12 @@ bool GNSS_Manager::get_a_fix(unsigned long timeout_seconds, bool set_RTC_time, b
       Serial.println(F("gnss powered up"));
       Serial.flush();
 
-      if (!gnss.begin(Wire)){
+      if (!gnss.begin(GnssWire)){
         Serial.println(F("problem starting GNSS"));
 
         // power things down
         turn_gnss_off();
-        Wire.end();
+        GnssWire.end();
         delay(500);
         continue;
       }
@@ -131,7 +131,7 @@ bool GNSS_Manager::get_a_fix(unsigned long timeout_seconds, bool set_RTC_time, b
   // power things down
   if (perform_full_stop){
     turn_gnss_off();
-    Wire.end();
+    GnssWire.end();
   }
 
   wdt.restart();
@@ -180,7 +180,7 @@ bool GNSS_Manager::get_and_push_fix(unsigned long timeout_seconds){
 
     // we turn off by hand, since we did not perform full start stop in the loop
     turn_gnss_off();
-    Wire.end();
+    GnssWire.end();
 
     // then, get the values for the filtered lat, lon, timestamp
     long crrt_latitude = accurate_sigma_filter<long>(crrt_accumulator_latitude, 2.0);
@@ -212,7 +212,7 @@ bool GNSS_Manager::get_and_push_fix(unsigned long timeout_seconds){
   }
 
   turn_gnss_off();
-  Wire.end();
+  GnssWire.end();
 
   Serial.println(F("no fix, no push to buffer"));
 

@@ -62,6 +62,7 @@ void turn_thermistors_on(void);
 void turn_thermistors_off(void);
 
 //--------------------------------------------------------------------------------
-//making the ArtemisWire port available to all 
+//making the ArtemisWire port available to all
 extern TwoWire ArtemisWire;
+extern TwoWire GnssWire;
 #endif
