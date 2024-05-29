@@ -6,7 +6,7 @@
 #include "etl/vector.h"
 
 #include <Wire.h> // Needed for I2C
-#include <SparkFun_u-blox_GNSS_Arduino_Library.h> //http://librarymanager/All#SparkFun_u-blox_GNSS
+#include <SparkFun_u-blox_GNSS_v3.h>
 
 #include "board_control.h"
 #include "time_manager.h"
@@ -28,7 +28,7 @@ class GNSS_Manager{
     bool get_a_fix(unsigned long timeout_seconds=timeout_gnss_fix_seconds, bool set_RTC_time=true, bool perform_full_start=true, bool perform_full_stop=true);
 
     bool get_and_push_fix(unsigned long timeout_seconds=timeout_gnss_fix_seconds);  // if it worked or not (to decide if iridium)
-    
+
     size_t write_message_to_buffer(etl::ivector<unsigned char>& buffer, size_t max_nbr_fixes=max_nbr_GPS_fixes_per_message);  // G[12B][12B]...\0
 
     void clear_number_sent_fixes(size_t number_fixes_to_clear);

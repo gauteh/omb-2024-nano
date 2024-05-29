@@ -19,7 +19,7 @@ RUN arduino-cli lib install "Embedded Template Library ETL"
 RUN touch /root/Arduino/libraries/Embedded_Template_Library_ETL/src/etl.h
 RUN arduino-cli lib install Time
 RUN arduino-cli lib install "SparkFun Qwiic Power Switch Arduino Library"
-RUN arduino-cli lib install "SparkFun u-blox GNSS Arduino Library@2.0.2"
+RUN arduino-cli lib install "SparkFun u-blox GNSS v3"
 RUN arduino-cli lib install IridiumSBDi2c
 RUN arduino-cli lib install "Adafruit LSM6DS@4.3.1"
 RUN arduino-cli lib install "Adafruit BusIO@1.7.2"
@@ -48,4 +48,4 @@ WORKDIR /tracker
 
 # The main ino file must have the same name as the folder.
 # RUN arduino-cli compile -v -b SparkFun:apollo3:artemis .
-
+# arduino-cli compile -e --output-dir build --build-cache-path /tmp/build -v -b SparkFun:apollo3:amap3nano .
