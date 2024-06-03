@@ -24,7 +24,7 @@
 /* #define superCapPGOOD      28 // Input for the LTC3225 super capacitor charger PGOOD signal */
 #define busVoltageMonEN    34 // Bus voltage monitor enable: pull high to enable bus voltage monitoring (via Q4 and Q3)
 /* #define spiCS2             35 // D35 can be used as an SPI chip select or as a general purpose IO pin */
-#define iridiumRI          41 // Input for the Iridium 9603N Ring Indicator
+#define iridiumRI          13 // Input for the Iridium 9603N Ring Indicator
 // Make sure you do not have gnssEN and iridiumPwrEN enabled at the same time!
 // If you do, bad things might happen to the AS179 RF switch!
 
