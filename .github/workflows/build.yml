@@ -28,7 +28,7 @@ jobs:
           touch $HOME/Arduino/libraries/Embedded_Template_Library_ETL/src/etl.h
           arduino-cli lib install Time
           arduino-cli lib install "SparkFun Qwiic Power Switch Arduino Library"
-          arduino-cli lib install "SparkFun u-blox GNSS Arduino Library@2.0.2"
+          arduino-cli lib install "SparkFun u-blox GNSS v3"
           arduino-cli lib install IridiumSBDi2c
           arduino-cli lib install "Adafruit LSM6DS@4.3.1"
           arduino-cli lib install "Adafruit BusIO@1.7.2"
