@@ -48,4 +48,4 @@ WORKDIR /tracker
 
 # The main ino file must have the same name as the folder.
 # RUN arduino-cli compile -v -b SparkFun:apollo3:artemis .
-# arduino-cli compile -e --output-dir build --build-cache-path /tmp/build -v -b SparkFun:apollo3:amap3nano .
+# arduino-cli compile -e --output-dir build --build-cache-path /tmp/build -v -b SparkFun:apollo3:artemis .
