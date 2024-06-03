@@ -25,36 +25,36 @@ bool IridiumManager::send_receive_message(unsigned long timeout_cap_charging_sec
 
     //--------------------------------------------------------------------------------
     // charge the supercaps
-    Serial.println(F("charge supercaps"));
-    pinMode(superCapChgEN, OUTPUT);
-    digitalWrite(superCapChgEN, HIGH); // Enable the super capacitor charger
-    delay(2000);
-    wdt.restart();
+    /* Serial.println(F("charge supercaps")); */
+    /* pinMode(superCapChgEN, OUTPUT); */
+    /* digitalWrite(superCapChgEN, HIGH); // Enable the super capacitor charger */
+    /* delay(2000); */
+    /* wdt.restart(); */
 
-    bool charge_ready {false};
+    /* bool charge_ready {false}; */
 
-    for (int i=0; i<timeout_cap_charging_seconds; i++){
-        Serial.print(F("-"));
-    }
-    Serial.println();
-    delay(10);
+    /* for (int i=0; i<timeout_cap_charging_seconds; i++){ */
+    /*     Serial.print(F("-")); */
+    /* } */
+    /* Serial.println(); */
+    /* delay(10); */
     
-    for (unsigned long tstart=millis(); (!charge_ready) && (millis()-tstart < 1000UL * timeout_cap_charging_seconds);){
-      charge_ready = (bool)digitalRead(superCapPGOOD);
-      delay(1000);
-      wdt.restart();
-      Serial.print("-");
-    }
-    Serial.println();
+    /* for (unsigned long tstart=millis(); (!charge_ready) && (millis()-tstart < 1000UL * timeout_cap_charging_seconds);){ */
+    /*   charge_ready = (bool)digitalRead(superCapPGOOD); */
+    /*   delay(1000); */
+    /*   wdt.restart(); */
+    /*   Serial.print("-"); */
+    /* } */
+    /* Serial.println(); */
 
-    if (!charge_ready){
-        Serial.println(F("failed to charge supercaps, abort transmission"));
-        turn_iridium_off();
-        send_receive_last_went_through = false;
-        return false;
-    }
+    /* if (!charge_ready){ */
+    /*     Serial.println(F("failed to charge supercaps, abort transmission")); */
+    /*     turn_iridium_off(); */
+    /*     send_receive_last_went_through = false; */
+    /*     return false; */
+    /* } */
 
-    Serial.println(F("supercaps charged"));
+    /* Serial.println(F("supercaps charged")); */
 
     delay(1000);  // top up charge
     wdt.restart();
