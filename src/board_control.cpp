@@ -1,4 +1,5 @@
 #include "board_control.h"
+#include "gnss_manager.h"
 
 TwoWire ArtemisWire(i2c_port_number);
 TwoWire GnssWire(3);
@@ -44,13 +45,18 @@ void turn_gnss_on(void){
   Serial.println(F("turn gnss on"));
   turn_iridium_off();
   delay(100);
+  // https://github.com/sparkfun/SparkFun_u-blox_GNSS_Arduino_Library/blob/main/examples/Example22_PowerOff/Example22_PowerOff.ino
   pinMode(gnssEN, OUTPUT); // Configure the pin which enables power for the ZOE-M8Q GNSS
-  digitalWrite(gnssEN, LOW); // Enable GNSS power (HIGH = disable; LOW = enable)
+  digitalWrite(gnssEN, LOW);
   delay(1000);
+  digitalWrite(gnssEN, HIGH);
+  delay(1000);
+  digitalWrite(gnssEN, LOW);
 }
 
 void turn_gnss_off(void){
   Serial.println(F("turn gnss off"));
+  gnss.powerOff(60 * 60 * 1000); // sleep for 1 hour
   pinMode(gnssEN, OUTPUT);
   digitalWrite(gnssEN, HIGH); // Disable GNSS power (HIGH = disable; LOW = enable)
   delay(10);
