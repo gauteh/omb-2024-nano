@@ -24,12 +24,12 @@ void setup_pins(void){
   pinMode(LED, OUTPUT); // Make the LED pin an output
 
   turn_gnss_off(); // Disable power for the GNSS
-  pinMode(geofencePin, INPUT); // Configure the geofence pin as an input
+  /* pinMode(geofencePin, INPUT); // Configure the geofence pin as an input */
 
   turn_iridium_off();
   pinMode(iridiumRI, INPUT); // Configure the Iridium Ring Indicator as an input
   pinMode(iridiumNA, INPUT); // Configure the Iridium Network Available as an input
-  pinMode(superCapPGOOD, INPUT); // Configure the super capacitor charger PGOOD input
+  /* pinMode(superCapPGOOD, INPUT); // Configure the super capacitor charger PGOOD input */
 
   pinMode(busVoltageMonEN, OUTPUT); // Make the Bus Voltage Monitor Enable an output
   digitalWrite(busVoltageMonEN, LOW); // Set it low to disable the measurement to save power
@@ -61,8 +61,8 @@ void turn_iridium_on(void){
   Serial.println(F("turn iridium on"));
   turn_gnss_off();
   delay(100);
-  pinMode(superCapChgEN, OUTPUT); // Configure the super capacitor charger enable pin (connected to LTC3225 !SHDN)
-  digitalWrite(superCapChgEN, HIGH); // Enable the super capacitor charger
+  /* pinMode(superCapChgEN, OUTPUT); // Configure the super capacitor charger enable pin (connected to LTC3225 !SHDN) */
+  /* digitalWrite(superCapChgEN, HIGH); // Enable the super capacitor charger */
   pinMode(iridiumPwrEN, OUTPUT); // Configure the Iridium Power Pin (connected to the ADM4210 ON pin)
   digitalWrite(iridiumPwrEN, HIGH); // Enable Iridium Power
   delay(1000);
@@ -72,10 +72,10 @@ void turn_iridium_off(void){
   Serial.println(F("turn iridium off"));
   pinMode(iridiumPwrEN, OUTPUT); // Configure the Iridium Power Pin (connected to the ADM4210 ON pin)
   digitalWrite(iridiumPwrEN, LOW); // Disable Iridium Power (HIGH = enable; LOW = disable)
-  pinMode(superCapChgEN, OUTPUT); // Configure the super capacitor charger enable pin (connected to LTC3225 !SHDN)
-  digitalWrite(superCapChgEN, LOW); // Disable the super capacitor charger (HIGH = enable; LOW = disable)
-  pinMode(iridiumSleep, OUTPUT); // Iridium 9603N On/Off (Sleep) pin
-  digitalWrite(iridiumSleep, LOW); // Put the Iridium 9603N to sleep (HIGH = on; LOW = off/sleep)
+  /* pinMode(superCapChgEN, OUTPUT); // Configure the super capacitor charger enable pin (connected to LTC3225 !SHDN) */
+  /* digitalWrite(superCapChgEN, LOW); // Disable the super capacitor charger (HIGH = enable; LOW = disable) */
+  /* pinMode(iridiumSleep, OUTPUT); // Iridium 9603N On/Off (Sleep) pin */
+  /* digitalWrite(iridiumSleep, LOW); // Put the Iridium 9603N to sleep (HIGH = on; LOW = off/sleep) */
 }
 
 void turn_thermistors_on(void){
