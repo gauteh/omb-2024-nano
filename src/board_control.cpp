@@ -23,6 +23,7 @@ void blink_LED_n_times(unsigned int number_of_blinks, float frequency_hz){
 
 void setup_pins(void){
   pinMode(LED, OUTPUT); // Make the LED pin an output
+  pinMode(IMUPwr, OUTPUT);
 
   turn_gnss_off(); // Disable power for the GNSS
   /* pinMode(geofencePin, INPUT); // Configure the geofence pin as an input */

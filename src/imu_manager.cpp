@@ -11,6 +11,9 @@ bool IMU_Manager::start_IMU(){
 
   pinMode(LED, OUTPUT);
   digitalWrite(LED, LOW);
+  pinMode(IMUPwr, OUTPUT);
+  digitalWrite(IMUPwr, LOW);
+  delay(500);
 
   enableBurstMode();
   delay(100);
@@ -94,6 +97,9 @@ bool IMU_Manager::stop_IMU(){
   ArtemisWire.end();
   wdt.restart();
   delay(100);
+
+  pinMode(IMUPwr, OUTPUT);
+  digitalWrite(IMUPwr, LOW);
 
    return true;
 }

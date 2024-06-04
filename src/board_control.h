@@ -27,6 +27,7 @@
 #define iridiumRI          13 // Input for the Iridium 9603N Ring Indicator
 // Make sure you do not have gnssEN and iridiumPwrEN enabled at the same time!
 // If you do, bad things might happen to the AS179 RF switch!
+#define IMUPwr             31 // Powers the IMU.
 
 // custom pins for the thermistors
 #define THERMISTORS_ONE_WIRE_PIN 35  // the data pin; I suggest to put a 100 Ohm between the pin and the sensors; this way, if a cable is cut / shorted, will not burn the pin
