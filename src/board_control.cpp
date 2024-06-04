@@ -56,11 +56,11 @@ void turn_gnss_on(void){
 
 void turn_gnss_off(void){
   Serial.println(F("turn gnss off"));
-  gnss.powerOff(60 * 60 * 1000); // sleep for 1 hour
   pinMode(gnssEN, OUTPUT);
-  digitalWrite(gnssEN, HIGH); // Disable GNSS power (HIGH = disable; LOW = enable)
-  delay(10);
-  pinMode(gnssEN, INPUT_PULLUP); // Configure the pin which enables power for the ZOE-M8Q GNSS
+  digitalWrite(gnssEN, LOW);
+  delay(100);
+  gnss.powerOff(60 * 60 * 1000); // sleep for 1 hour
+  pinMode(gnssEN, INPUT_PULLUP); // TODO: maybe this wakes it up again?
 }
 
 void turn_iridium_on(void){
