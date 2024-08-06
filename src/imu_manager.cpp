@@ -11,8 +11,8 @@ bool IMU_Manager::start_IMU(){
 
   pinMode(LED, OUTPUT);
   digitalWrite(LED, LOW);
-  pinMode(IMUPwr, OUTPUT);
-  digitalWrite(IMUPwr, LOW);
+  pinMode(IMUPwr, g_AM_HAL_GPIO_OUTPUT_12); // 12 mA
+  digitalWrite(IMUPwr, HIGH);
   delay(500);
 
   enableBurstMode();

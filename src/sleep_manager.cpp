@@ -126,10 +126,11 @@ void wake_up(void){
   Serial.begin(baudrate_debug_serial);
   delay(100);
   Serial.println();
-  Serial.println(F("------ WAKE UP ------"));
+  Serial.println(F("------ WAKE UP1 ------"));
   Serial.println(F("powered up board"));
 
   setup_pins();
   turn_gnss_off();
   turn_iridium_off();
+  Serial.println(F("powered up board (gnss and iridium off)"));
 }

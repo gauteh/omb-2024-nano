@@ -4,6 +4,51 @@ SFE_UBLOX_GNSS gnss;
 
 GNSS_Manager gnss_manager;
 
+bool GNSS_Manager::sleep(unsigned long duration) {
+  wdt.restart();
+  Serial.println(F("Attempting to put gps to sleep"));
+
+  GnssWire.begin();
+
+  /* turn_gnss_on(); */
+  delay(1000); // Give it time to power up
+  wdt.restart();
+
+  Serial.println(F("gnss wire started"));
+  Serial.flush();
+
+  if (!gnss.begin(GnssWire, 0x42)){
+    Serial.println(F("problem starting GNSS"));
+    return false;
+
+    // power things down
+    delay(500);
+  } else{
+    Serial.println(F("success starting GNSS"));
+  }
+
+  // now we know that we can talk to the gnss
+  gnss.setI2COutput(COM_TYPE_UBX); // Limit I2C output to UBX (disable the NMEA noise)
+  delay(100);
+
+  // If we are going to change the dynamic platform model, let's do it here.
+  // Possible values are:
+  // PORTABLE,STATIONARY,PEDESTRIAN,AUTOMOTIVE,SEA,AIRBORNE1g,AIRBORNE2g,AIRBORNE4g,WRIST,BIKE
+  if (!gnss.setDynamicModel(DYN_MODEL_STATIONARY)){
+    Serial.println(F("GNSS could not set dynamic model"));
+  }
+
+
+  Serial.println(F("gps sleeping..."));
+  gnss.powerOff(duration);
+  Serial.println(F("gps sleeping."));
+
+  wdt.restart();
+  GnssWire.end();
+
+  return true;
+}
+
 bool GNSS_Manager::get_a_fix(unsigned long timeout_seconds, bool set_RTC_time, bool perform_full_start, bool perform_full_stop){
   wdt.restart();
   good_fit = false;

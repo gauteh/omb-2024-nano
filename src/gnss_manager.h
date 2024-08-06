@@ -29,6 +29,8 @@ class GNSS_Manager{
 
     bool get_and_push_fix(unsigned long timeout_seconds=timeout_gnss_fix_seconds);  // if it worked or not (to decide if iridium)
 
+    bool sleep(unsigned long duration);
+
     size_t write_message_to_buffer(etl::ivector<unsigned char>& buffer, size_t max_nbr_fixes=max_nbr_GPS_fixes_per_message);  // G[12B][12B]...\0
 
     void clear_number_sent_fixes(size_t number_fixes_to_clear);
