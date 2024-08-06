@@ -50,6 +50,8 @@ constexpr int i2c_port_number {0}; // for IMU
     constexpr size_t min_nbr_of_fix_per_message = 6;  // a reasonable value
     constexpr size_t max_nbr_GPS_fixes_per_message = 20;
 
+    // for how long we retry transmitting a given message
+    constexpr int timeout_attempt_transmit_seconds {300};
 #elif (DEPLOYMENT_MODE == 1)
     #define DEPLOYMENT_INFO "testing"
 
@@ -63,6 +65,8 @@ constexpr int i2c_port_number {0}; // for IMU
     constexpr size_t min_nbr_of_fix_per_message = 3;
     constexpr size_t max_nbr_GPS_fixes_per_message = 5;
 
+    // for how long we retry transmitting a given message
+    constexpr int timeout_attempt_transmit_seconds {10};
 #elif (DEPLOYMENT_MODE == 2)
     #define DEPLOYMENT_INFO "Malin setup"
 
@@ -95,8 +99,6 @@ static_assert(min_nbr_of_fix_per_message <= max_nbr_GPS_fixes_per_message);  // 
 // for a max charging time of 2 minutes, put 2UL * 60UL
 constexpr unsigned long timeout_cap_charging_seconds = 3UL * 60UL;
 
-// for how long we retry transmitting a given message
-constexpr int timeout_attempt_transmit_seconds {300};
 
 // uncommend the define to print additional iridium information
 #define ISBD_DIAGNOSTICS
