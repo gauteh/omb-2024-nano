@@ -68,7 +68,7 @@ void prepare_to_sleep(void){
   turn_gnss_off();
   turn_iridium_off();
 
-  digitalWrite(busVoltageMonEN, LOW);
+  /* digitalWrite(busVoltageMonEN, LOW); */
   digitalWrite(LED, LOW);
 
   turn_thermistors_off();
@@ -82,7 +82,7 @@ void prepare_to_sleep(void){
   delay(50);
 
   // Turn off ADC
-  power_adc_disable();
+  /* power_adc_disable(); */
 
   // Disabling the debugger GPIOs saves about 1.2 uA total:
   am_hal_gpio_pinconfig(20 /* SWDCLK */, g_AM_HAL_GPIO_DISABLE);

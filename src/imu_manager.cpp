@@ -98,7 +98,7 @@ bool IMU_Manager::stop_IMU(){
   wdt.restart();
   delay(100);
 
-  pinMode(IMUPwr, OUTPUT);
+  pinMode(IMUPwr, g_AM_HAL_GPIO_OUTPUT_12);
   digitalWrite(IMUPwr, LOW);
 
    return true;

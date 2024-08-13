@@ -18,7 +18,7 @@ constexpr int i2c_port_number {0}; // for IMU
 // first declare the variables and document
 // then use if constexpr to set the values
 // TODO: test on a small snippet first...
-#define DEPLOYMENT_MODE 0
+#define DEPLOYMENT_MODE 1
 
 //--------------------------------------------------------------------------------
 // GNSS params
@@ -52,6 +52,11 @@ constexpr int i2c_port_number {0}; // for IMU
 
     // for how long we retry transmitting a given message
     constexpr int timeout_attempt_transmit_seconds {300};
+
+    // the IMU is sampled at a rate of 10 Hz
+    // 20 minutes would be 20*60*10=12000 samples ie 5.85 non overlapping segments
+    // in practise, let's use 6 non overlapping segments then, i.e. 12288 samples (a bit over 20 minutes)
+    constexpr size_t total_number_of_samples {2048 * 6};
 #elif (DEPLOYMENT_MODE == 1)
     #define DEPLOYMENT_INFO "testing"
 
@@ -67,6 +72,11 @@ constexpr int i2c_port_number {0}; // for IMU
 
     // for how long we retry transmitting a given message
     constexpr int timeout_attempt_transmit_seconds {10};
+
+    // the IMU is sampled at a rate of 10 Hz
+    // 20 minutes would be 20*60*10=12000 samples ie 5.85 non overlapping segments
+    // in practise, let's use 6 non overlapping segments then, i.e. 12288 samples (a bit over 20 minutes)
+    constexpr size_t total_number_of_samples {100};
 #elif (DEPLOYMENT_MODE == 2)
     #define DEPLOYMENT_INFO "Malin setup"
 
@@ -122,7 +132,7 @@ constexpr size_t fft_length {2048};
 // the IMU is sampled at a rate of 10 Hz
 // 20 minutes would be 20*60*10=12000 samples ie 5.85 non overlapping segments
 // in practise, let's use 6 non overlapping segments then, i.e. 12288 samples (a bit over 20 minutes)
-constexpr size_t total_number_of_samples {2048 * 6};
+/* constexpr size_t total_number_of_samples {2048 * 6}; */ // defined above
 
 // use a 75% overlap in the Welch computation
 // this name is actually very confusing and badly chosen (TODO: refactor name), as fft_overlap
