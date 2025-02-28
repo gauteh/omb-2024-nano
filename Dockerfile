@@ -10,8 +10,8 @@ RUN arduino-cli config init
 
 RUN arduino-cli config add board_manager.additional_urls https://raw.githubusercontent.com/sparkfun/Arduino_Apollo3/main/package_sparkfun_apollo3_index.json
 
-RUN arduino-cli core update-index
-RUN arduino-cli core install "Sparkfun:apollo3@1.2.1"
+RUN	arduino-cli core --additional-urls https://raw.githubusercontent.com/sparkfun/Arduino_Apollo3/refs/heads/main/package_sparkfun_apollo3_index.json update-index
+RUN	arduino-cli core --additional-urls https://raw.githubusercontent.com/sparkfun/Arduino_Apollo3/refs/heads/main/package_sparkfun_apollo3_index.json install "Sparkfun:apollo3@1.2.1"
 
 RUN arduino-cli lib update-index
 
