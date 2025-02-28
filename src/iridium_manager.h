@@ -71,7 +71,7 @@ class IridiumManager{
 
   private:
     Uart iridium_serial{1, 40, 39};
-    IridiumSBD iridium_sbd{iridium_serial, iridiumSleep, iridiumRI};
+    IridiumSBD iridium_sbd{iridium_serial, -1, iridiumRI};
 
     unsigned char iridium_tx_raw_buffer[iridium_tx_buffer_size];
     uint8_t iridium_rx_raw_buffer[iridium_rx_buffer_size];

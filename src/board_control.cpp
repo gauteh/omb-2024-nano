@@ -26,12 +26,12 @@ void setup_pins(void){
   /* pinMode(IMUPwr, g_AM_HAL_GPIO_OUTPUT_12); // 12 mA */
   pinMode(IMUPwr, g_AM_HAL_GPIO_OUTPUT_12); // 12 mA
 
-  pinMode(iridiumPwrEN, g_AM_HAL_GPIO_OUTPUT_12); // Configure the Iridium Power Pin (connected to the ADM4210 ON pin)
-  digitalWrite(iridiumPwrEN, LOW); // Disable Iridium Power (HIGH = enable; LOW = disable)
+  pinMode(iridiumSleep, g_AM_HAL_GPIO_OUTPUT_12); // Configure the Iridium Power Pin (connected to the ADM4210 ON pin)
+  digitalWrite(iridiumSleep, LOW); // Disable Iridium Power (HIGH = enable; LOW = disable)
 
   // Configure GNSS enable pin
-  pinMode(gnssEN, OUTPUT); // Configure the pin which enables power for the ZOE-M8Q GNSS
-  digitalWrite(gnssEN, HIGH);
+  pinMode(gnssEN, g_AM_HAL_GPIO_OUTPUT_12); // Configure the pin which enables power for the ZOE-M8Q GNSS
+  digitalWrite(gnssEN, LOW);
   gnss_manager.setup();
   turn_gnss_off(); // Disable power for the GNSS
   /* pinMode(geofencePin, INPUT); // Configure the geofence pin as an input */
@@ -55,15 +55,15 @@ void turn_gnss_on(void){
   turn_iridium_off();
   delay(100);
   // https://github.com/sparkfun/SparkFun_u-blox_GNSS_Arduino_Library/issues/228
-  pinMode(gnssEN, OUTPUT); // Configure the pin which enables power for the ZOE-M8Q GNSS
-  digitalWrite(gnssEN, HIGH);
+  pinMode(gnssEN, g_AM_HAL_GPIO_OUTPUT_12); // Configure the pin which enables power for the ZOE-M8Q GNSS
+  digitalWrite(gnssEN, LOW);
   delay(1000);
 }
 
 void turn_gnss_off(void){
   Serial.println(F("turn gnss off"));
-  pinMode(gnssEN, OUTPUT);
-  digitalWrite(gnssEN, LOW);
+  pinMode(gnssEN, g_AM_HAL_GPIO_OUTPUT_12);
+  digitalWrite(gnssEN, HIGH);
   delay(100);
 }
 
@@ -73,21 +73,25 @@ void turn_iridium_on(void){
   delay(100);
   /* pinMode(superCapChgEN, OUTPUT); // Configure the super capacitor charger enable pin (connected to LTC3225 !SHDN) */
   /* digitalWrite(superCapChgEN, HIGH); // Enable the super capacitor charger */
-  pinMode(iridiumPwrEN, g_AM_HAL_GPIO_OUTPUT_12); // Configure the Iridium Power Pin (connected to the ADM4210 ON pin)
-  digitalWrite(iridiumPwrEN, HIGH); // Enable Iridium Power
+  pinMode(iridiumSleep, g_AM_HAL_GPIO_OUTPUT_12); // Configure the Iridium Power Pin (connected to the ADM4210 ON pin)
+  digitalWrite(iridiumSleep, HIGH); // Enable Iridium Power
   delay(1000);
+  Serial.println("Waiting for capacitors to charge..");
+  delay(10*1000);
+  Serial.println("done.");
 }
 
 void turn_iridium_off(void){
   Serial.println(F("turn iridium off"));
-  pinMode(iridiumPwrEN, g_AM_HAL_GPIO_OUTPUT_12); // Configure the Iridium Power Pin (connected to the ADM4210 ON pin)
-  digitalWrite(iridiumPwrEN, LOW); // Disable Iridium Power (HIGH = enable; LOW = disable)
+  pinMode(iridiumSleep, g_AM_HAL_GPIO_OUTPUT_12); // Configure the Iridium Power Pin (connected to the ADM4210 ON pin)
+  digitalWrite(iridiumSleep, LOW); // Disable Iridium Power (HIGH = enable; LOW = disable)
   /* pinMode(superCapChgEN, OUTPUT); // Configure the super capacitor charger enable pin (connected to LTC3225 !SHDN) */
   /* digitalWrite(superCapChgEN, LOW); // Disable the super capacitor charger (HIGH = enable; LOW = disable) */
   /* pinMode(iridiumSleep, OUTPUT); // Iridium 9603N On/Off (Sleep) pin */
   /* digitalWrite(iridiumSleep, LOW); // Put the Iridium 9603N to sleep (HIGH = on; LOW = off/sleep) */
 }
 
+# ifndef DISABLE_ALL_THERMISTOR
 void turn_thermistors_on(void){
  // turn on power to the OneWire sensors
   pinMode(THERMISTORS_POWER_PIN, OUTPUT);
@@ -100,3 +104,4 @@ void turn_thermistors_off(void){
   pinMode(THERMISTORS_POWER_PIN, INPUT);
   delay(100);
 }
+# endif

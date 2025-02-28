@@ -71,7 +71,9 @@ void prepare_to_sleep(void){
   /* digitalWrite(busVoltageMonEN, LOW); */
   digitalWrite(LED, LOW);
 
+# ifndef DISABLE_ALL_THERMISTOR
   turn_thermistors_off();
+# endif
   delay(50);
 
   Serial.println(F("power down board"));
