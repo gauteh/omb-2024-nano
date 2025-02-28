@@ -19,6 +19,7 @@ docker-build:
 	docker build -t omb-nano .
 
 docker-run:
+	cp Makefile src/
 	docker run -it --rm --name sr -v $(shell pwd)/src:/tracker omb-nano
 
 bin:
