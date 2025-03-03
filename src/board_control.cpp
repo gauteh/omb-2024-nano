@@ -30,8 +30,9 @@ void setup_pins(void){
   digitalWrite(iridiumSleep, LOW); // Disable Iridium Power (HIGH = enable; LOW = disable)
 
   // Configure GNSS enable pin
-  pinMode(gnssEN, g_AM_HAL_GPIO_OUTPUT_12); // Configure the pin which enables power for the ZOE-M8Q GNSS
-  digitalWrite(gnssEN, LOW);
+  turn_gnss_on();
+  /* pinMode(gnssEN, g_AM_HAL_GPIO_OUTPUT_12); // Configure the pin which enables power for the ZOE-M8Q GNSS */
+  /* digitalWrite(gnssEN, LOW); // LOW = on */
   gnss_manager.setup();
   turn_gnss_off(); // Disable power for the GNSS
   /* pinMode(geofencePin, INPUT); // Configure the geofence pin as an input */
