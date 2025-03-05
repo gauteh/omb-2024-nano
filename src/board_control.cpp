@@ -29,11 +29,6 @@ void setup_pins(void){
   pinMode(iridiumSleep, g_AM_HAL_GPIO_OUTPUT_12); // Configure the Iridium Power Pin (connected to the ADM4210 ON pin)
   digitalWrite(iridiumSleep, LOW); // Disable Iridium Power (HIGH = enable; LOW = disable)
 
-  Serial.println("waiting11");
-  for (int i = 0; i < 2; i++) {
-    Serial.println("waiting1..");
-    delay(1000);
-  }
   // Configure GNSS enable pin
   turn_gnss_on();
   /* pinMode(gnssEN, g_AM_HAL_GPIO_OUTPUT_12); // Configure the pin which enables power for the ZOE-M8Q GNSS */
@@ -41,11 +36,6 @@ void setup_pins(void){
   gnss_manager.setup();
   turn_gnss_off(); // Disable power for the GNSS
   /* pinMode(geofencePin, INPUT); // Configure the geofence pin as an input */
-
-  for (int i = 0; i < 2; i++) {
-    Serial.println("waiting..");
-    delay(1000);
-  }
 
   turn_iridium_off();
   pinMode(iridiumRI, INPUT); // Configure the Iridium Ring Indicator as an input
@@ -88,7 +78,7 @@ void turn_iridium_on(void){
   digitalWrite(iridiumSleep, HIGH); // Enable Iridium Power
   delay(1000);
   Serial.println("Waiting for capacitors to charge..");
-  delay(10*1000);
+  delay(30*1000);
   Serial.println("done.");
 }
 

@@ -38,7 +38,7 @@ bool IridiumManager::send_receive_message(unsigned long timeout_cap_charging_sec
     /* } */
     /* Serial.println(); */
     /* delay(10); */
-    
+
     /* for (unsigned long tstart=millis(); (!charge_ready) && (millis()-tstart < 1000UL * timeout_cap_charging_seconds);){ */
     /*   charge_ready = (bool)digitalRead(superCapPGOOD); */
     /*   delay(1000); */
@@ -60,28 +60,41 @@ bool IridiumManager::send_receive_message(unsigned long timeout_cap_charging_sec
     wdt.restart();
 
     //--------------------------------------------------------------------------------
-    // turn on the iridium module
-    turn_iridium_on();
-    wdt.restart();
-    delay(1000);
-    wdt.restart();
 
-    iridium_serial.begin(19200);
-    delay(1000);
-    wdt.restart();
-    iridium_sbd.setPowerProfile(IridiumSBD::USB_POWER_PROFILE);
-    wdt.restart();
-    millis_last_callback = millis();
+    bool success = false;
+    for (int i = 0; i < 5; i++) {
+        // turn on the iridium module
+        turn_iridium_on();
+        wdt.restart();
+        delay(1000);
+        wdt.restart();
 
-    if (iridium_sbd.begin() != ISBD_SUCCESS){  // note: could get an error message here
-        Serial.println(F("failed to start the iridium modem!"));
-        turn_iridium_off();
+        iridium_serial.begin(19200);
+        delay(1000);
+        wdt.restart();
+        iridium_sbd.setPowerProfile(IridiumSBD::USB_POWER_PROFILE);
+        wdt.restart();
+        millis_last_callback = millis();
+
+        if (iridium_sbd.begin() != ISBD_SUCCESS){  // note: could get an error message here
+            Serial.println(F("failed to start the iridium modem! trying again.."));
+            delay(1000);
+            iridium_serial.end();
+            turn_iridium_off();
+        }
+        else{
+            Serial.println(F("iridium modem started"));
+            success = true;
+            break;
+        }
+    }
+
+    if (!success) {
+        Serial.println(F("Too many tries, giving up."));
         send_receive_last_went_through = false;
         return false;
     }
-    else{
-        Serial.println(F("iridium modem started"));
-    }
+
     wdt.restart();
 
     iridium_sbd.useMSSTMWorkaround(true);
@@ -453,7 +466,7 @@ bool IridiumManager::last_communication_was_successful(void) const {
 }
 
 bool IridiumManager::last_attempt_tried_sending(void) const{
-   return attempt_tried_sending; 
+   return attempt_tried_sending;
 }
 
 IridiumManager iridium_manager;
