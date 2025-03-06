@@ -11,3 +11,4 @@ A version of the [OpenMetBuoy 2021](https://github.com/jerabaul29/OpenMetBuoy-v2
 - IMU: IOM0
 - Iridium: UART1
 - GPS: IOM3
+- D10: indicator LED.
